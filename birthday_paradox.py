@@ -15,8 +15,9 @@ class BirthdayParadox:
         Each birthday is represented by an integer between 1 and 365.
         """
         birthdays = []  # List to store generated birthdays
-        for _ in range(self.group_count): 
+        for i in range(self.group_count): 
             day = random.randint(1, 365)
+        #Randomly pick a day
             birthdays.append(day)
         return birthdays
 
@@ -27,8 +28,13 @@ class BirthdayParadox:
         Returns:
             True if at least two people share the same birthday, False otherwise.
         """
-        return len(birthdays) != len(set(birthdays))
-
+        count=len(birthdays)
+        for i in range(count):            #[500,400,300,200,100] It will select the first value
+            for j in range(i+1,count):    #It will select the second value to check duplicates
+                if birthdays [i]==birthdays[j]:
+                    return True           #if dublicates found
+                return False              # if there is no dublicates
+                
     def run_simulation(self):
         """
         Run the birthday paradox simulation multiple times.
@@ -38,7 +44,7 @@ class BirthdayParadox:
         """
         duplicate_cases = 0
 
-        for _ in range(self.repeat_count):
+        for i in range(self.repeat_count):
             birthdays = self.generate_birthdays()
             if self.has_duplicate_birthday(birthdays):
                 duplicate_cases += 1
@@ -51,4 +57,4 @@ class BirthdayParadox:
         Run the simulation and print the estimated probability.
         """
         probability = self.run_simulation()
-        print(f"For a group of {self.group_count} people → Probability ≈ {probability:.2f}")
+        print(f"With {self.group_count} people, the probability is about {probability:.2f}")  
